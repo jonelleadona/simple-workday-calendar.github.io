@@ -1,7 +1,10 @@
 
+// Global arrays 
 var businessHrs = 9;
 var arrayHours = ["9AM","10AM","11AM","12PM","1PM","2PM","3PM","4PM","5PM"];
 
+// Displays current date 
+$("#currentDay").text(moment().format("dddd, MMMM Do YYYY"));
 
 // Creats the timeblock rows and columns
 for (var i = 0; i < businessHrs; ++i)
