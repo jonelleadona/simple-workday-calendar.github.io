@@ -24,15 +24,37 @@ for (var i = 0; i < businessHrs; ++i)
   var timeBlockSave = $("<div/>", {
     class: "col",
     id: "save" + i
-  });
+  }); 
 
   // Time block container
   $("#timeBlockRow" + i).append(timeBlockHour, timeBlockEvent, timeBlockSave); 
 
+  // Creates the area for text
+  var textBox = $("<textarea/>", {
+    style: "border: none", 
+    id: "textField",
+  });
+
+  $("#event" + i).append(textBox);
+
   // Accesses array
-  
   var hourContent = document.createTextNode(arrayHours[i]);
   $("#hour" + i).append(hourContent);
+
+  // Creates the save button
+  var saveBtn = $("<button/>", {
+    class: "btn btn-primary",
+    id: "sBtn" + i
+  });
+
+  // Creates the image for the button
+  var saveBtnImg = $("<i/>", {
+    class: "far fa-save",
+  });
+
+  $("#save" + i).append(saveBtn);
+  $("#sBtn" + i).append(saveBtnImg);
+
 
 }
 
