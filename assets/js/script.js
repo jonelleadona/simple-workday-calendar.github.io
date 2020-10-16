@@ -35,7 +35,7 @@ for (var i = 0; i < businessHrs; ++i)
   // Creates the area for text
   var textBox = $("<textarea/>", {
     style: "border: none", 
-    id: "textField",
+    id: "textField" + i,
   });
 
   $("#event" + i).append(textBox);
@@ -55,11 +55,32 @@ for (var i = 0; i < businessHrs; ++i)
     class: "far fa-save",
   });
 
+  // Appends to the HTML 
   $("#save" + i).append(saveBtn);
   $("#sBtn" + i).append(saveBtnImg);
 
+  //Saves appointment on calender 
+  //Creates function for save button
+  $("#sBtn" + i).on("click", function()
+  {
+   // Grabs text area content 
+    var saveText = $("#textField" + i).text();
+    
+    // Creates local storage
+    localStorage.setItem("timeScheduled", saveText );
+    
+    // format to store data
 
+
+    //Everytime page loads, data is ratreved and displayed on page
+
+  });
+  
+   
 }
+
+
+
 
 
 
