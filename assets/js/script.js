@@ -63,23 +63,24 @@ for (var i = 0; i < businessHrs; ++i)
   //Creates function for save button
   $("#" + arrayHours[i]).on("click", function()
   {
-   // Grabs text area content 
-    var saveText = $("#textField" + this.id);
+    // Grabs text area content
+    var saveText = $("#textField" + this.id).val();
 
-    console.log (saveText)
-    // Creates local storage
-    localStorage.setItem(this.id , saveText);
-
-    
-    // retrieve the stored data and display it on the page
+    // Store data based on hour
+    localStorage.setItem(this.id, saveText);
   });
-  
-   
+
+  // Display data after all of the elements are created
+  // This needs to occur here after everything because the elements need to be created
+  // and appended to the page first before we go searching for it to display data
+  $("#textField" + arrayHours[i]).val(localStorage.getItem(arrayHours[i]));
+
+  // TO BE DELETED: On line 76 above
+  // - The part '$("#textField" + arrayHours[i])' is searching for the textarea element using the ID. If i = 0, the ID it's searching for is #textField9AM
+  // - .val() is a function/property of the textarea element that let the user get/set the text in the field
+  // - localStorage.getItem(arrayHours[i]) returns the stored data for a specified hour/time block
+  // So, if i = 0 for line 76, the code would look like this if you replace the variables with the appropriate string value:
+  // $("#textField9AM").val(localStorage.getItem("9AM"));
 }
-localStorage.clear();
 
-
-
-
-
-
+// localStorage.clear();
