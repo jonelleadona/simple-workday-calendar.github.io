@@ -35,7 +35,7 @@ for (var i = 0; i < businessHrs; ++i)
   // Creates the area for text
   var textBox = $("<textarea/>", {
     style: "border: none", 
-    id: "textField" + i,
+    id: "textField" + arrayHours[i],
   });
 
   $("#event" + i).append(textBox);
@@ -47,7 +47,7 @@ for (var i = 0; i < businessHrs; ++i)
   // Creates the save button
   var saveBtn = $("<button/>", {
     class: "btn btn-primary",
-    id: "sBtn" + i
+    id: arrayHours[i]
   });
 
   // Creates the image for the button
@@ -55,30 +55,28 @@ for (var i = 0; i < businessHrs; ++i)
     class: "far fa-save",
   });
 
-  // Appends to the HTML 
+  // Appends to the HTML using string concat
   $("#save" + i).append(saveBtn);
-  $("#sBtn" + i).append(saveBtnImg);
+  $("#" + arrayHours[i]).append(saveBtnImg);
 
   //Saves appointment on calender 
   //Creates function for save button
-  $("#sBtn" + i).on("click", function()
+  $("#" + arrayHours[i]).on("click", function()
   {
    // Grabs text area content 
-    var saveText = $("#textField" + i).text();
-    
+    var saveText = $("#textField" + this.id);
+
+    console.log (saveText)
     // Creates local storage
-    localStorage.setItem("timeScheduled", saveText );
+    localStorage.setItem(this.id , saveText);
+
     
-    // format to store data
-
-
-    //Everytime page loads, data is ratreved and displayed on page
-
+    // retrieve the stored data and display it on the page
   });
   
    
 }
-
+localStorage.clear();
 
 
 
