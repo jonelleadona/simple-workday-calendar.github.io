@@ -81,6 +81,17 @@ for (var i = 0; i < businessHrs; ++i)
   // - localStorage.getItem(arrayHours[i]) returns the stored data for a specified hour/time block
   // So, if i = 0 for line 76, the code would look like this if you replace the variables with the appropriate string value:
   // $("#textField9AM").val(localStorage.getItem("9AM"));
+
+  // TO BE DELETED:
+  // After displaying the data, use this same loop that is looping through each
+  // hour to color code the appointment (gray for past, red for present, and green for future)
+  // Steps/Tasks to do:
+  // 1) Since this loop is already looping through each hour, I can use the variable i to access the arrayHours[] array and use the hour string to search for the ID of the textarea like I did on line 76
+  // 2) I need to google how to change the background color of the textarea using jQuery syntax
+  // 3) After finding the textarea element for the current hour/row from step 1, I need to compare the current hour/row with the actual hour and decide what color the textarea needs to be. Maybe Moment.JS can help me to format the hours in a way so I can compare them
+  // 4) Note that the spacing and sizing will look off at first. After I'm doing color-coding, I need to make it so that the middle column is bigger, and also change the size of the textarea to take up the entire space of the middle column
+  // 5) Additional CSS stuff will need to be done as well to make it look pretty
 }
 
+// TO BE DELETED: Uncomment to clear local storage after testing so local storage doesn't fill up
 // localStorage.clear();
