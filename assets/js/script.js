@@ -8,31 +8,27 @@ $("#currentDay").text(moment().format("dddd, MMMM Do YYYY"));
 
 
 function colorCodeAppointment(hourString) 
+{
+  var appointmentTime = moment(hourString, "hA");
+  console.log(appointmentTime);
+  
+  var currentTimeString = moment().format("hA");
+  var currentTime = moment(currentTimeString, "hA");
+  console.log(currentTime);
 
+  if (appointmentTime.isBefore(currentTime))
   {
-    var appointmentTime = moment(hourString, "hA");
-    console.log(appointmentTime);
-    
-    var currentTimeString = moment().format("hA");
-    var currentTime = moment(currentTimeString, "hA");
-    console.log(currentTime);
-
-    if (appointmentTime.isBefore(currentTime))
-    {
-      $("#textField" + hourString).css("background", "#e6e6e6");
-    }
-    else if (appointmentTime.isSame(currentTime))
-    {
-      $("#textField" + hourString).css("background", "#ff3333");
-    }
-    else
-    {
-      $("#textfield" + hourString).css("background", "#5cd65c");
-    }
+    $("#textField" + hourString).css("background", "#e6e6e6");
   }
-
-
-
+  else if (appointmentTime.isSame(currentTime))
+  {
+    $("#textField" + hourString).css("background", "#ff3333");
+  }
+  else
+  {
+    $("#textfield" + hourString).css("background", "#5cd65c");
+  }
+}
 
 // Creats the timeblock rows and columns
 for (var i = 0; i < businessHrs; ++i)
@@ -42,29 +38,40 @@ for (var i = 0; i < businessHrs; ++i)
     id: "timeBlockRow" + i
   }).appendTo("#timeBlockContainer");
 
+  var col = $("<div/>", {
+    class: "col-sm-1"
+  }); 
+  
   var timeBlockHour = $("<div/>", {
-    class: "col col-2",
+    class: "col-sm-1",
     align: "right",
+    style: "border-style: dashed hidden hidden; padding: 15px",
     id: "hour" + i
   });
 
   var timeBlockEvent = $("<div/>", {
-    class: "col",
+    class: "col-sm",
     id: "event" + i
   });
 
   var timeBlockSave = $("<div/>", {
-    class: "col col-2",
+    class: "col-sm-2",
+    float: "center",
     id: "save" + i
   }); 
 
+  var col2 = $("<div/>", {
+    class: "col-sm-1"
+  }); 
+
   // Time block container
-  $("#timeBlockRow" + i).append(timeBlockHour, timeBlockEvent, timeBlockSave); 
+  $("#timeBlockRow" + i).append(col, timeBlockHour, timeBlockEvent, timeBlockSave, col2); 
 
   // Creates the area for text
   var textBox = $("<textarea/>", {
     style: "border: none",
-    width: "600px", 
+    width: "100%", 
+    height: "100%",
     id: "textField" + arrayHours[i],
   });
 
@@ -77,12 +84,15 @@ for (var i = 0; i < businessHrs; ++i)
   // Creates the save button
   var saveBtn = $("<button/>", {
     class: "btn btn-primary",
+    width: "50%",
+    height: "100%",
     id: arrayHours[i]
   });
 
   // Creates the image for the button
   var saveBtnImg = $("<i/>", {
     class: "far fa-save",
+    style: "font-size: 30px",
   });
 
   // Appends to the HTML using string concat
@@ -103,5 +113,6 @@ for (var i = 0; i < businessHrs; ++i)
   
   $("#textField" + arrayHours[i]).val(localStorage.getItem(arrayHours[i]));
 
+  // Adds colorCodeAppointment function intp for loop
   colorCodeAppointment(arrayHours[i])
 }
