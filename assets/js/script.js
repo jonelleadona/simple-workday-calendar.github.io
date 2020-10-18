@@ -6,60 +6,62 @@ var arrayHours = ["9AM","10AM","11AM","12PM","1PM","2PM","3PM","4PM","5PM"];
 // Displays current date 
 $("#currentDay").text(moment().format("dddd, MMMM Do YYYY"));
 
-
-function colorCodeAppointment(hourString) 
-{
-  var appointmentTime = moment(hourString, "hA");
-  console.log(appointmentTime);
-  
-  var currentTimeString = moment().format("hA");
-  var currentTime = moment(currentTimeString, "hA");
-  console.log(currentTime);
-
-  if (appointmentTime.isBefore(currentTime))
-  {
-    $("#textField" + hourString).css("background", "#e6e6e6");
-  }
-  else if (appointmentTime.isSame(currentTime))
-  {
-    $("#textField" + hourString).css("background", "#ff3333");
-  }
-  else
-  {
-    $("#textfield" + hourString).css("background", "#5cd65c");
-  }
-}
-
 // Creats the timeblock rows and columns
 for (var i = 0; i < businessHrs; ++i)
 {
+  var appointmentTime = moment(arrayHours[i], "hA");
+  var currentTimeString = moment().format("hA");
+  var currentTime = moment(currentTimeString, "hA");
+
+  var appointmentColor = "";
+
+  // Compare appointment time block with current time and set appropriate color
+  if (appointmentTime.isBefore(currentTime))
+  {
+    appointmentColor = "past";
+  }
+  else if (appointmentTime.isSame(currentTime))
+  {
+    appointmentColor = "present";
+  }
+  else
+  {
+    appointmentColor = "future";
+  }
+
+  // Create container row to hold each time block
   var timeBlockRow = $("<div/>", {
     class: "row",
     id: "timeBlockRow" + i
   }).appendTo("#timeBlockContainer");
 
+  // Create empty column for spacing
   var col = $("<div/>", {
     class: "col-sm-1"
   }); 
   
+  // Create column container to hold the time text
   var timeBlockHour = $("<div/>", {
-    class: "col-sm-1",
+    class: "col-sm-1 hour",
     align: "right",
     style: "border-style: dashed hidden hidden; padding: 15px",
     id: "hour" + i
   });
 
+  // Create column container to hold the appointment text
   var timeBlockEvent = $("<div/>", {
     class: "col-sm",
     id: "event" + i
   });
 
+  // Create column container to hold the save button
   var timeBlockSave = $("<div/>", {
     class: "col-sm-2",
     float: "center",
     id: "save" + i
   }); 
 
+  // Create empty column for spacing
   var col2 = $("<div/>", {
     class: "col-sm-1"
   }); 
@@ -67,8 +69,9 @@ for (var i = 0; i < businessHrs; ++i)
   // Time block container
   $("#timeBlockRow" + i).append(col, timeBlockHour, timeBlockEvent, timeBlockSave, col2); 
 
-  // Creates the area for text
+  // Create the area for appointment text
   var textBox = $("<textarea/>", {
+    class: appointmentColor,
     style: "border: none",
     width: "100%", 
     height: "100%",
@@ -83,7 +86,7 @@ for (var i = 0; i < businessHrs; ++i)
 
   // Creates the save button
   var saveBtn = $("<button/>", {
-    class: "btn btn-primary",
+    class: "btn btn-primary saveBtn",
     width: "50%",
     height: "100%",
     id: arrayHours[i]
@@ -109,10 +112,6 @@ for (var i = 0; i < businessHrs; ++i)
     // Store data based on hour
     localStorage.setItem(this.id, saveText);
   });
-
   
   $("#textField" + arrayHours[i]).val(localStorage.getItem(arrayHours[i]));
-
-  // Adds colorCodeAppointment function intp for loop
-  colorCodeAppointment(arrayHours[i])
 }
