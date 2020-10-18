@@ -7,6 +7,6 @@ This useful calendar offers the ability to save input events while also indicati
 - Enter event 
 - Click save button when event is entered 
 
-![] (./assets/img/calender-demo.gif)
+![](./assets/img/calender-demo.gif)
 
 #### Link to calendar--> https://jonelleadona.github.io/simple-workday-calendar.github.io/
