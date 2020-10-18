@@ -19,15 +19,15 @@ function colorCodeAppointment(hourString)
 
     if (appointmentTime.isBefore(currentTime))
     {
-      $("#textField" + hourString).css("background", "gray");
+      $("#textField" + hourString).css("background", "#e6e6e6");
     }
     else if (appointmentTime.isSame(currentTime))
     {
-      $("#textField" + hourString).css("background", "red");
+      $("#textField" + hourString).css("background", "#ff3333");
     }
     else
     {
-      $("#textfield" + hourString).css("background", "green");
+      $("#textfield" + hourString).css("background", "#5cd65c");
     }
   }
 
@@ -43,7 +43,8 @@ for (var i = 0; i < businessHrs; ++i)
   }).appendTo("#timeBlockContainer");
 
   var timeBlockHour = $("<div/>", {
-    class: "col",
+    class: "col col-2",
+    align: "right",
     id: "hour" + i
   });
 
@@ -53,7 +54,7 @@ for (var i = 0; i < businessHrs; ++i)
   });
 
   var timeBlockSave = $("<div/>", {
-    class: "col",
+    class: "col col-2",
     id: "save" + i
   }); 
 
@@ -62,7 +63,8 @@ for (var i = 0; i < businessHrs; ++i)
 
   // Creates the area for text
   var textBox = $("<textarea/>", {
-    style: "border: none", 
+    style: "border: none",
+    width: "600px", 
     id: "textField" + arrayHours[i],
   });
 
@@ -101,5 +103,5 @@ for (var i = 0; i < businessHrs; ++i)
   
   $("#textField" + arrayHours[i]).val(localStorage.getItem(arrayHours[i]));
 
-  colorCodeAppointment(arrayHours[i]);
+  colorCodeAppointment(arrayHours[i])
 }
